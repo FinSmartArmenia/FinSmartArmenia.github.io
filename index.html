@@ -191,9 +191,9 @@
 </header>
 
 <div class="sub-nav">
-    <button class="nav-btn" onclick="openInfoModal('aboutModal')">Մեր մասին</button>
-    <button class="nav-btn" onclick="openInfoModal('whyModal')">Ինչու՞ օգտագործել FinSmart</button>
-    <button class="nav-btn" onclick="showPersonalAchievements()">Իմ նվաճումները</button>
+    <button class="nav-btn" onclick="openInfoModal('aboutModal')" data-key="nav_about">Մեր մասին</button>
+    <button class="nav-btn" onclick="openInfoModal('whyModal')" data-key="nav_why">Ինչու՞ օգտագործել FinSmart</button>
+    <button class="nav-btn" onclick="showPersonalAchievements()" data-key="nav_achievements">Իմ նվաճումները</button>
 </div>
 
 <div class="container">
@@ -224,14 +224,14 @@
 
         <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
         <div id="loanSection">
-            <h3 style="color: var(--gold);">🏦 Վարկի Մարման Հաշվարկ</h3>
-            <label>Վարկի գումար (֏)</label>
-            <input type="number" id="loanAmount" placeholder="Օրինակ՝ 500,000">
-            <label>Տարեկան տոկոսադրույք (%)</label>
-            <input type="number" id="loanInterest" placeholder="Օրինակ՝ 12">
-            <label>Նախատեսված ժամկետ (ամիս)</label>
-            <input type="number" id="loanTerm" placeholder="Օրինակ՝ 24">
-            <button class="calc-btn" style="background: var(--dark);" onclick="calculateLoan()">Հաշվարկել Մարումը</button>
+            <h3 style="color: var(--gold);" data-key="loan_title">🏦 Վարկի Մարման Հաշվարկ</h3>
+            <label data-key="label_loan_amount">Վարկի գումար (֏)</label>
+            <input type="number" id="loanAmount" placeholder="Օրինակ՝ 500,000" data-placeholder="ph_loan_amount">
+            <label data-key="label_loan_interest">Տարեկան տոկոսադրույք (%)</label>
+            <input type="number" id="loanInterest" placeholder="Օրինակ՝ 12" data-placeholder="ph_loan_interest">
+            <label data-key="label_loan_term">Նախատեսված ժամկետ (ամիս)</label>
+            <input type="number" id="loanTerm" placeholder="Օրինակ՝ 24" data-placeholder="ph_loan_term">
+            <button class="calc-btn" style="background: var(--dark);" onclick="calculateLoan()" data-key="btn_calc_loan">Հաշվարկել Մարումը</button>
             <div id="loanResult" class="result-box" style="border-left-color: var(--dark);">
                 <div id="loan-res-text"></div>
             </div>
@@ -239,14 +239,14 @@
 
         <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
         <div id="currencySection">
-            <h3 style="color: var(--gold);">💱 Արժույթի Փոխանակիչ</h3>
+            <h3 style="color: var(--gold);" data-key="conv_title">💱 Արժույթի Փոխանակիչ</h3>
             <div style="display: flex; gap: 10px;">
                 <div style="flex: 1;">
-                    <label>Գումար</label>
+                    <label data-key="label_conv_amount">Գումար</label>
                     <input type="number" id="convAmount" value="1000" oninput="convertCurrency()">
                 </div>
                 <div style="flex: 1;">
-                    <label>Արժույթ</label>
+                    <label data-key="label_conv_type">Արժույթ</label>
                     <select id="convType" onchange="updateRateUI()">
                         <option value="USD">USD (ԱՄՆ Դոլար)</option>
                         <option value="EUR">EUR (Եվրո)</option>
@@ -256,9 +256,9 @@
             </div>
             
             <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; margin-top: 10px;">
-                <label style="font-size: 12px; color: #666;">Փոխարժեք (1 միավորի համար)</label>
+                <label style="font-size: 12px; color: #666;" data-key="label_conv_rate">Փոխարժեք (1 միավորի համար)</label>
                 <input type="number" id="customRate" step="0.1" oninput="convertCurrency()">
-                <p style="font-size: 11px; color: var(--gold); margin: 0;" id="rateNote">Լռելյայն կուրսը կիրառված է</p>
+                <p style="font-size: 11px; color: var(--gold); margin: 0;" id="rateNote" data-key="rate_default_note">Լռելյայն կուրսը կիրառված է</p>
             </div>
 
             <div id="convResult" style="margin-top: 15px; font-weight: bold; font-size: 18px; color: var(--text); text-align: center;">
@@ -305,11 +305,11 @@
     </a>
 </div>
 
-<div id="aboutModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('aboutModal')">&times;</span><h2>Մեր մասին</h2><p>FinSmart-ը ձեր թվային ֆինանսական ուղեցույցն է Հայաստանում:</p></div></div>
-<div id="whyModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('whyModal')">&times;</span><h2>Ինչու՞ օգտագործել FinSmart</h2><p>✅ AI խորհրդատվություն և պարզ հաշվարկներ:</p></div></div>
-<div id="achievementsModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('achievementsModal')">&times;</span><h2>Իմ նվաճումները</h2><div id="achievementsList"></div></div></div>
+<div id="aboutModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('aboutModal')">&times;</span><h2 data-key="nav_about">Մեր մասին</h2><p data-key="about_text">FinSmart-ը ձեր թվային ֆինանսական ուղեցույցն է Հայաստանում:</p></div></div>
+<div id="whyModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('whyModal')">&times;</span><h2 data-key="nav_why">Ինչու՞ օգտագործել FinSmart</h2><p data-key="why_text">✅ AI խորհրդատվություն և պարզ հաշվարկներ:</p></div></div>
+<div id="achievementsModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeInfoModal('achievementsModal')">&times;</span><h2 data-key="nav_achievements">Իմ նվաճումները</h2><div id="achievementsList"></div></div></div>
 <div id="congratsModal" class="modal"><div class="modal-content" style="border-top: 6px solid #28a745;"><h2 style="font-size: 50px;">🎉</h2><h3 id="congratsTitle">Level Up!</h3><p id="congratsText"></p><button class="calc-btn" onclick="closeCongrats()">OK</button></div></div>
-<div id="regModal" class="modal"><div class="modal-content"><h3 data-key="reg_title">📥 Գրանցում</h3><form id="regForm"><input type="text" id="userName" placeholder="Անուն" required><input type="email" id="userEmail" placeholder="Էլ. հասցե" required><button type="submit" class="calc-btn" data-key="btn_save">Պահպանել</button></form><button onclick="closeModal()" style="background:none; color:gray; margin-top:15px; border:none; cursor:pointer;" data-key="btn_close">Փակել</button></div></div>
+<div id="regModal" class="modal"><div class="modal-content"><h3 data-key="reg_title">📥 Գրանցում</h3><form id="regForm"><input type="text" id="userName" placeholder="Անուն" data-placeholder="reg_name_ph" required><input type="email" id="userEmail" placeholder="Էլ. հասցե" data-placeholder="reg_email_ph" required><button type="submit" class="calc-btn" data-key="btn_save">Պահպանել</button></form><button onclick="closeModal()" style="background:none; color:gray; margin-top:15px; border:none; cursor:pointer;" data-key="btn_close">Փակել</button></div></div>
 <div id="userDataModal" class="modal"><div class="modal-content"><h3 data-key="my_data_title">👤 Իմ Տվյալները</h3><div id="userDataContent" style="background: rgba(0,0,0,0.05); padding:15px; border-radius:8px; margin:15px 0; text-align:left;"></div><button onclick="closeUserDataModal()" class="calc-btn" data-key="btn_ok">Լավ</button><div id="dynamicActionBtn"></div></div></div>
 
 <footer>&copy; 2026 FinSmart Armenia | <a href="privacy.html" style="color:var(--gold)" data-key="privacy">Գաղտնիություն</a></footer>
@@ -319,50 +319,81 @@
         am: {
             main_sub: "Կառավարեք ձեր ֆինանսները խելացի տարբերակով",
             menu_user: "Օգտատեր", menu_my_data: "👤 ԻՄ ՏՎՅԱԼՆԵՐԸ", menu_lang: "Լեզու / Language", menu_settings: "Կարգավորումներ", menu_night_mode: "🌙 Գիշերային ռեժիմ",
-            calc_title: "📊 AI Ֆինանսական Օգնական", label_income: "Ամսական Եկամուտ (֏)", label_expenses: "Ամսական Ծախսեր (֏)", label_goal: "Խնայողության նպատակ (֏)",
-            btn_calc: "Վերլուծել AI-ով", history_title: "📈 Գործողությունների Պատմություն", th_date: "Ամսաթիվ", th_inc: "Եկամուտ", th_exp: "Ծախս", th_trend: "Դինամիկա", th_action: "Գործողություն",
+            nav_about: "Մեր մասին", nav_why: "Ինչու՞ օգտագործել FinSmart", nav_achievements: "Իմ նվաճումները",
+            about_text: "FinSmart-ը ձեր թվային ֆինանսական ուղեցույցն է Հայաստանում: Մեր նպատակն է սովորեցնել մարդկանց ճիշտ կառավարել բյուջեն:",
+            why_text: "✅ AI խորհրդատվություն, ✅ Պարզ հաշվարկներ, ✅ Գաղտնիություն:",
+            calc_title: "📊 AI Ֆինանսական Օգնական", label_income: "Ամսական Եկամուտ", label_expenses: "Ամսական Ծախսեր", label_goal: "Խնայողության նպատակ (֏)",
+            input_income: "֏ 0", input_expenses: "֏ 0", input_goal: "֏ 0", btn_calc: "Վերլուծել AI-ով",
+            loan_title: "🏦 Վարկի Մարման Հաշվարկ", label_loan_amount: "Վարկի գումար (֏)", label_loan_interest: "Տարեկան տոկոսադրույք (%)", label_loan_term: "Նախատեսված ժամկետ (ամիս)",
+            ph_loan_amount: "Օրինակ՝ 500,000", ph_loan_interest: "Օրինակ՝ 12", ph_loan_term: "Օրինակ՝ 24", btn_calc_loan: "Հաշվարկել Մարումը",
+            conv_title: "💱 Արժույթի Փոխանակիչ", label_conv_amount: "Գումար", label_conv_type: "Արժույթ", label_conv_rate: "Փոխարժեք (1 միավորի համար)",
+            rate_default_note: "Լռելյայն կուրսը կիրառված է", rate_custom_note: "Կիրառվում է ձեր սահմանած կուրսը",
+            history_title: "📈 Գործողությունների Պատմություն", th_date: "Ամսաթիվ", th_inc: "Եկամուտ", th_exp: "Ծախս", th_trend: "Դինամիկա", th_action: "Գործողություն",
             btn_clear_history: "🗑️ Ջնջել պատմությունը", btn_download: "📄 Ներբեռնել PDF",
             tip1_title: "1. Ինչպե՞ս սկսել խնայել զրոյից ➔", tip1_desc: "Բացահայտեք պարզ քայլեր ձեր առաջին խնայողությունները ստեղծելու համար:",
             tip2_title: "2. Ծախսերի օպտիմալացում ➔", tip2_desc: "Ինչպես կրճատել ավելորդ ծախսերը առանց կյանքի որակը փոխելու:",
             tip3_title: "3. Ներդրումներ Հայաստանում ➔", tip3_desc: "Ինչպե՞ս ստիպել գումարին աշխատել ձեզ համար:",
-            reg_title: "📥 Գրանցում", btn_save: "Պահպանել", btn_close: "Փակել", my_data_title: "👤 Իմ Տվյալները", btn_ok: "Լավ", privacy: "Գաղտնիություն",
+            reg_title: "📥 Գրանցում", reg_name_ph: "Անուն", reg_email_ph: "Էլ. հասցե", btn_save: "Պահպանել", btn_close: "Փակել", my_data_title: "👤 Իմ Տվյալները", btn_ok: "Լավ", privacy: "Գաղտնիություն",
             free_money: "Ազատ գումար", trend_up: "↑ աճ", trend_down: "↓ նվազում", no_reg: "Դուք դեռ գրանցված չեք:", btn_clear: "Ջնջել օգտատիրոջը", btn_reg_now: "Գրանցվել",
             goal_reached: "Դուք կհասնեք ձեր նպատակին", months: "ամսից", confirm_clear: "Համոզվա՞ծ եք, որ ուզում եք ջնջել ամբողջ պատմությունը:", progress_label: "Նպատակի իրագործում",
             levels: ["Սկսնակ 🥉", "Խնայող 🥈", "Ֆինանսական Վարպետ 🥇", "Լեգենդար Հաղթող 🏆"],
             congrats_msg: "Շնորհավորում ենք: Դուք հասաք նպատակին և ստացաք կոչում՝ ",
             ai_advice_good: "Լավ է: Դուք ծախսում եք եկամտի 50%-ից քիչը:", ai_advice_neutral: "Ուշադիր եղեք: Ձեր ծախսերը բարձր են:", ai_advice_bad: "Վտանգ: Ծախսերը գերազանցում են եկամուտը:",
-            report_title: "Ֆինանսական Հաշվետվություն"
+            report_title: "Ֆինանսական Հաշվետվություն", loan_monthly: "Ամսական վճար", loan_remain: "Ազատ գումարից կմնա"
         },
-        ru: { /* ... (same as before) ... */ },
-        en: { /* ... (same as before) ... */ }
+        ru: {
+            main_sub: "Управляйте финансами с умом",
+            menu_user: "Пользователь", menu_my_data: "👤 МОИ ДАННЫЕ", menu_lang: "Язык", menu_settings: "Настройки", menu_night_mode: "🌙 Ночной режим",
+            nav_about: "О нас", nav_why: "Почему FinSmart", nav_achievements: "Мои достижения",
+            about_text: "FinSmart - ваш цифровой гид по финансам в Армении.",
+            why_text: "✅ AI консультации, ✅ Простые расчеты, ✅ Конфиденциальность.",
+            calc_title: "📊 AI Помощник", label_income: "Месячный доход", label_expenses: "Месячные расходы", label_goal: "Цель экономии (֏)",
+            input_income: "֏ 0", input_expenses: "֏ 0", input_goal: "֏ 0", btn_calc: "Анализ AI",
+            loan_title: "🏦 Расчет погашения кредита", label_loan_amount: "Сумма кредита (֏)", label_loan_interest: "Годовая ставка (%)", label_loan_term: "Срок (месяцев)",
+            ph_loan_amount: "Напр. 500,000", ph_loan_interest: "Напр. 12", ph_loan_term: "Напр. 24", btn_calc_loan: "Рассчитать",
+            conv_title: "💱 Конвертер валют", label_conv_amount: "Сумма", label_conv_type: "Валюта", label_conv_rate: "Курс (за 1 единицу)",
+            rate_default_note: "Используется курс по умолчанию", rate_custom_note: "Используется ваш курс",
+            history_title: "📈 История операций", th_date: "Дата", th_inc: "Доход", th_exp: "Расход", th_trend: "Динамика", th_action: "Действие",
+            btn_clear_history: "🗑️ Очистить историю", btn_download: "📄 Скачать PDF",
+            tip1_title: "1. Как начать копить ➔", tip1_desc: "Узнайте шаги для создания сбережений.",
+            tip2_title: "2. Оптимизация расходов ➔", tip2_desc: "Как сократить лишние траты.",
+            tip3_title: "3. Инвестиции в Армении ➔", tip3_desc: "Как заставить деньги работать.",
+            reg_title: "📥 Регистрация", reg_name_ph: "Имя", reg_email_ph: "Эл. почта", btn_save: "Сохранить", btn_close: "Закрыть", my_data_title: "👤 Данные", btn_ok: "ОК", privacy: "Приватность",
+            free_money: "Свободные деньги", trend_up: "↑ рост", trend_down: "↓ спад", no_reg: "Вы еще не зарегистрированы.", btn_clear: "Удалить данные", btn_reg_now: "Регистрация",
+            goal_reached: "Вы достигнете цели через", months: "мес.", confirm_clear: "Очистить всю историю?", progress_label: "Прогресс цели",
+            levels: ["Новичок 🥉", "Экономный 🥈", "Мастер Финансов 🥇", "Легендарный Победитель 🏆"],
+            congrats_msg: "Поздравляем! Вы получили титул: ",
+            ai_advice_good: "Хорошо! Тратите меньше 50%.", ai_advice_neutral: "Внимание! Расходы высоки.", ai_advice_bad: "Опасно! Расходы выше дохода.",
+            report_title: "Финансовый отчет", loan_monthly: "Ежемесячный платеж", loan_remain: "Остаток от свободных денег"
+        },
+        en: {
+            main_sub: "Manage finances the smart way",
+            menu_user: "User", menu_my_data: "👤 MY DATA", menu_lang: "Language", menu_settings: "Settings", menu_night_mode: "🌙 Night Mode",
+            nav_about: "About Us", nav_why: "Why FinSmart", nav_achievements: "My Achievements",
+            about_text: "FinSmart is your digital financial guide in Armenia.",
+            why_text: "✅ AI Insights, ✅ Simple Calculations, ✅ Full Privacy.",
+            calc_title: "📊 AI Financial Assistant", label_income: "Monthly Income", label_expenses: "Monthly Expenses", label_goal: "Savings Goal (֏)",
+            input_income: "֏ 0", input_expenses: "֏ 0", input_goal: "֏ 0", btn_calc: "Analyze with AI",
+            loan_title: "🏦 Loan Repayment Calculator", label_loan_amount: "Loan Amount (֏)", label_loan_interest: "Annual Rate (%)", label_loan_term: "Term (months)",
+            ph_loan_amount: "e.g. 500,000", ph_loan_interest: "e.g. 12", ph_loan_term: "e.g. 24", btn_calc_loan: "Calculate Loan",
+            conv_title: "💱 Currency Converter", label_conv_amount: "Amount", label_conv_type: "Currency", label_conv_rate: "Exchange Rate (per 1 unit)",
+            rate_default_note: "Default rate applied", rate_custom_note: "Your custom rate applied",
+            history_title: "📈 Transaction History", th_date: "Date", th_inc: "Income", th_exp: "Expense", th_trend: "Trend", th_action: "Action",
+            btn_clear_history: "🗑️ Clear History", btn_download: "📄 Download PDF",
+            tip1_title: "1. How to save from scratch ➔", tip1_desc: "Discover simple steps to save.",
+            tip2_title: "2. Cost optimization ➔", tip2_desc: "How to cut unnecessary costs.",
+            tip3_title: "3. Investing in Armenia ➔", tip3_desc: "Make your money work for you.",
+            reg_title: "📥 Registration", reg_name_ph: "Name", reg_email_ph: "Email", btn_save: "Save", btn_close: "Close", my_data_title: "👤 My Data", btn_ok: "OK", privacy: "Privacy",
+            free_money: "Free Money", trend_up: "↑ up", trend_down: "↓ down", no_reg: "Not registered yet.", btn_clear: "Clear Data", btn_reg_now: "Register Now",
+            goal_reached: "Goal reached in", months: "months", confirm_clear: "Clear all history?", progress_label: "Goal Progress",
+            levels: ["Beginner 🥉", "Saver 🥈", "Finance Master 🥇", "Legendary Winner 🏆"],
+            congrats_msg: "Congratulations! You earned the title: ",
+            ai_advice_good: "Great! Spending under 50%.", ai_advice_neutral: "Caution! High expenses.", ai_advice_bad: "Danger! Review budget.",
+            report_title: "Financial Report", loan_monthly: "Monthly Payment", loan_remain: "Remaining free money"
+        }
     };
 
-    // CURRENCY LOGIC
     const defaultRates = { USD: 395, EUR: 425, RUB: 4.3 };
-
-    function updateRateUI() {
-        const type = document.getElementById('convType').value;
-        document.getElementById('customRate').value = defaultRates[type];
-        convertCurrency();
-    }
-
-    function convertCurrency() {
-        const amount = parseFloat(document.getElementById('convAmount').value) || 0;
-        const rate = parseFloat(document.getElementById('customRate').value) || 0;
-        const result = amount * rate;
-        document.getElementById('convResult').innerText = result.toLocaleString() + " ֏";
-        
-        const type = document.getElementById('convType').value;
-        const note = document.getElementById('rateNote');
-        if (rate != defaultRates[type]) {
-            note.innerText = "Կիրառվում է ձեր սահմանած կուրսը";
-            note.style.color = "#d9534f";
-        } else {
-            note.innerText = "Լռելյայն կուրսը կիրառված է";
-            note.style.color = "var(--gold)";
-        }
-    }
-
     let currentLang = localStorage.getItem('lang') || 'am';
 
     function changeLang(lang) {
@@ -378,26 +409,52 @@
             const key = el.getAttribute('data-key');
             if (langData && langData[key]) el.innerText = langData[key];
         });
+        document.querySelectorAll('[data-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-placeholder');
+            if (langData && langData[key]) el.placeholder = langData[key];
+        });
         document.getElementById('mainSub').innerText = langData.main_sub;
         updateTable();
+        updateRateUI();
     }
 
-    function toggleLogoMenu() { document.getElementById('logoMenu').classList.toggle('show'); }
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    function updateRateUI() {
+        const type = document.getElementById('convType').value;
+        const rateInput = document.getElementById('customRate');
+        if (!rateInput.dataset.modified) {
+            rateInput.value = defaultRates[type];
+        }
+        convertCurrency();
     }
 
-    function openInfoModal(id) { document.getElementById(id).style.display = 'block'; }
-    function closeInfoModal(id) { document.getElementById(id).style.display = 'none'; }
-    
+    function convertCurrency() {
+        const amount = parseFloat(document.getElementById('convAmount').value) || 0;
+        const rateInput = document.getElementById('customRate');
+        const rate = parseFloat(rateInput.value) || 0;
+        const type = document.getElementById('convType').value;
+        const langData = translations[currentLang];
+
+        if (rate != defaultRates[type]) {
+            rateInput.dataset.modified = "true";
+            document.getElementById('rateNote').innerText = langData.rate_custom_note;
+            document.getElementById('rateNote').style.color = "#d9534f";
+        } else {
+            delete rateInput.dataset.modified;
+            document.getElementById('rateNote').innerText = langData.rate_default_note;
+            document.getElementById('rateNote').style.color = "var(--gold)";
+        }
+        
+        const result = amount * rate;
+        document.getElementById('convResult').innerText = result.toLocaleString() + " ֏";
+    }
+
     function calculateAI() {
         const inc = parseFloat(document.getElementById('income').value) || 0;
         const exp = parseFloat(document.getElementById('expenses').value) || 0;
         const goal = parseFloat(document.getElementById('goal').value) || 0;
         const langData = translations[currentLang];
 
-        if (inc <= 0) return alert("Մուտքագրեք եկամուտը");
+        if (inc <= 0) return alert(currentLang === 'am' ? "Մուտքագրեք եկամուտը" : "Enter income");
 
         const balance = inc - exp;
         const expenseRatio = (exp / inc) * 100;
@@ -411,6 +468,7 @@
             goalText = `<p style="margin-top:10px; color:var(--gold);">🎯 ${langData.goal_reached} <b>${months}</b> ${langData.months}:</p>`;
             const percent = Math.min(Math.round((balance / goal) * 100), 100);
             progressSection.style.display = 'block';
+            document.getElementById('progressLabel').innerText = langData.progress_label;
             document.getElementById('myBar').style.width = percent + "%";
             document.getElementById('myBar').innerText = percent + "%";
         } else {
@@ -429,8 +487,9 @@
         const loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
         const annualInterest = parseFloat(document.getElementById('loanInterest').value) || 0;
         const termMonths = parseInt(document.getElementById('loanTerm').value) || 0;
+        const langData = translations[currentLang];
 
-        if (loanAmount <= 0 || freeMoney <= 0) return alert("Լրացրեք տվյալները:");
+        if (loanAmount <= 0) return;
 
         const monthlyInterest = (annualInterest / 100) / 12;
         let monthlyPayment = monthlyInterest > 0 
@@ -439,10 +498,21 @@
 
         document.getElementById('loanResult').style.display = 'block';
         document.getElementById('loan-res-text').innerHTML = `
-            <p>💰 Ամսական վճար՝ <b>${Math.round(monthlyPayment).toLocaleString()} ֏</b></p>
-            <p>📊 Ազատ գումարից կմնա՝ <b>${Math.round(freeMoney - monthlyPayment).toLocaleString()} ֏</b></p>
+            <p>💰 ${langData.loan_monthly}: <b>${Math.round(monthlyPayment).toLocaleString()} ֏</b></p>
+            <p>📊 ${langData.loan_remain}: <b>${Math.round(freeMoney - monthlyPayment).toLocaleString()} ֏</b></p>
         `;
     }
+
+    function toggleLogoMenu() { document.getElementById('logoMenu').classList.toggle('show'); }
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    function openInfoModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeInfoModal(id) { document.getElementById(id).style.display = 'none'; }
+    function closeCongrats() { document.getElementById('congratsModal').style.display = 'none'; }
+    function closeModal() { document.getElementById('regModal').style.display = 'none'; }
+    function closeUserDataModal() { document.getElementById('userDataModal').style.display = 'none'; }
 
     function saveToHistory(inc, exp) {
         let history = JSON.parse(localStorage.getItem('finHistory')) || [];
@@ -470,25 +540,21 @@
     }
 
     function clearAllHistory() {
-        if (confirm("Ջնջե՞լ պատմությունը:")) {
+        if (confirm(translations[currentLang].confirm_clear)) {
             localStorage.removeItem('finHistory');
             updateTable();
         }
     }
 
     function showUserData() {
-        const name = localStorage.getItem('finSmartName') || "Գրանցված չէ";
-        document.getElementById('userDataContent').innerHTML = `<p>Անուն: ${name}</p>`;
+        const name = localStorage.getItem('finSmartName') || translations[currentLang].no_reg;
+        document.getElementById('userDataContent').innerHTML = `<p>${name}</p>`;
         document.getElementById('userDataModal').style.display = 'block';
     }
-
-    function closeUserDataModal() { document.getElementById('userDataModal').style.display = 'none'; }
-    function closeModal() { document.getElementById('regModal').style.display = 'none'; }
 
     window.onload = () => {
         if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
         applyLanguage();
-        updateRateUI(); // Initialize converter with default rate
     };
 </script>
 </body>
