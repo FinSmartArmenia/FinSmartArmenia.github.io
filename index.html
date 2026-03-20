@@ -4,194 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinSmart Armenia - Խելացի Ֆինանսներ</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     
     <style>
         :root { 
-            --gold: #d4af37; 
-            --dark: #1a1a1a; 
-            --bg: #f4f7f6; 
-            --text: #333; 
-            --card-bg: white; 
-            --transition: 0.3s ease;
+            --gold: #d4af37; --dark: #1a1a1a; --bg: #f4f7f6; --text: #333; --card-bg: white; 
         }
         body.dark-mode { 
-            --bg: #121212; 
-            --text: #e0e0e0; 
-            --card-bg: #1e1e1e; 
+            --bg: #121212; --text: #e0e0e0; --card-bg: #1e1e1e; 
         }
         body { 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            color: var(--text); 
-            line-height: 1.6; 
-            transition: var(--transition); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: var(--text); line-height: 1.6; transition: 0.3s; 
         }
+        
+        /* HEADER & LOGO */
         header { 
-            background: var(--dark); 
-            color: white; 
-            text-align: center; 
-            padding: 60px 20px; 
-            border-bottom: 5px solid var(--gold); 
-            position: relative; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            background: var(--dark); color: white; text-align: center; padding: 60px 20px; border-bottom: 5px solid var(--gold); position: relative; 
         }
-        .logo-container { 
-            position: absolute; 
-            top: 15px; 
-            left: 20px; 
-            cursor: pointer; 
-            z-index: 110; 
-            transition: transform 0.2s;
-        }
-        .logo-container:hover { transform: scale(1.05); }
-        .logo-svg { height: 70px; width: auto; }
+        .logo-container { position: absolute; top: 10px; left: 20px; cursor: pointer; z-index: 110; }
+        .logo-svg { height: 65px; width: auto; }
 
+        /* MENU & SETTINGS */
         .settings-menu {
-            display: none; 
-            position: absolute; 
-            top: 85px; 
-            left: 20px;
-            background: var(--card-bg); 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            z-index: 1000; 
-            width: 240px; 
-            overflow: hidden; 
-            border: 1px solid var(--gold);
+            display: none; position: absolute; top: 75px; left: 20px;
+            background: var(--card-bg); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1000; width: 230px; overflow: hidden; border: 1px solid var(--gold);
         }
-        .settings-menu.show { display: block; animation: fadeIn 0.3s ease; }
-     .settings-menu h4 { 
-            margin: 0; 
-            padding: 12px; 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            color: var(--gold); 
-            background: rgba(0,0,0,0.07); 
-            letter-spacing: 1px;
-        }
+        .settings-menu.show { display: block; animation: fadeIn 0.2s ease; }
+        .settings-menu h4 { margin: 0; padding: 10px; font-size: 11px; text-transform: uppercase; color: var(--gold); background: rgba(0,0,0,0.05); }
         .settings-menu button { 
-            display: block; 
-            width: 100%; 
-            padding: 14px 18px; 
-            color: var(--text); 
-            font-size: 14px; 
-            background: none; 
-            border: none; 
-            text-align: left; 
-            cursor: pointer; 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-            transition: 0.2s; 
+            display: block; width: 100%; padding: 12px 15px; color: var(--text); font-size: 14px; background: none; border: none; text-align: left; cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.05); 
         }
         .settings-menu button:hover { background: var(--gold); color: white; }
 
-        .sub-nav { 
-            background: #252525; 
-            padding: 12px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 15px; 
-            flex-wrap: wrap; 
-            border-bottom: 1px solid var(--gold); 
-        }
-        .nav-btn { 
-            background: rgba(212, 175, 55, 0.1); 
-            border: 1px solid var(--gold); 
-            color: var(--gold); 
-            padding: 10px 20px; 
-            border-radius: 25px; 
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 600;
-            transition: var(--transition); 
-        }
+        /* NAVIGATION */
+        .sub-nav { background: #252525; padding: 10px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid var(--gold); }
+        .nav-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .nav-btn:hover { background: var(--gold); color: white; }
 
-        .container { max-width: 900px; margin: 40px auto; padding: 0 25px; }
-        .card { 
-            background: var(--card-bg); 
-            padding: 35px; 
-            border-radius: 20px; 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.06); 
-            margin-bottom: 35px; 
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        input, select { 
-            width: 100%; 
-            padding: 14px; 
-            margin: 12px 0; 
-            border: 1.5px solid #eee; 
-            border-radius: 10px; 
-            box-sizing: border-box; 
-            background: var(--card-bg); 
-            color: var(--text); 
-            font-size: 15px; 
-            outline: none;
-            transition: 0.3s;
-        }
-        input:focus { border-color: var(--gold); box-shadow: 0 0 8px rgba(212, 175, 55, 0.2); }
-        .calc-btn { 
-            width: 100%; 
-            padding: 16px; 
-            background: var(--gold); 
-            color: white; 
-            border: none; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 16px;
-            transition: 0.3s; 
-            margin-top: 15px; 
-        }
-        .calc-btn:hover { background: #b8962d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        /* CARDS & INPUTS */
+        .container { max-width: 850px; margin: 30px auto; padding: 0 20px; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); margin-bottom: 30px; border: 1px solid rgba(212, 175, 55, 0.1); }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; background: var(--card-bg); color: var(--text); font-size: 14px; outline: none; }
+        input:focus { border-color: var(--gold); }
+        .calc-btn { width: 100%; padding: 15px; background: var(--gold); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+        .calc-btn:hover { background: #b8962d; transform: translateY(-2px); }
 
-        .result-box { 
-            display: none; 
-            margin-top: 25px; 
-            padding: 20px; 
-            background: rgba(212, 175, 55, 0.08); 
-            border-left: 6px solid var(--gold); 
-            border-radius: 12px; 
-            font-size: 18px;
-        }
-        .article-card { 
-            background: var(--card-bg); 
-            padding: 30px; 
-            border-radius: 18px; 
-            border-left: 8px solid var(--gold); 
-            margin-bottom: 25px; 
-            transition: 0.3s; 
-            cursor: pointer; 
-            text-decoration: none; 
-            display: block; 
-            color: inherit; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04); 
-        }
-        .article-card:hover { transform: scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .result-box { display: none; margin-top: 20px; padding: 20px; background: rgba(212, 175, 55, 0.05); border-left: 5px solid var(--gold); border-radius: 8px; font-size: 18px; }
+
+        /* ARTICLES */
+        .article-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border-left: 6px solid var(--gold); margin-bottom: 20px; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; color: inherit; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .article-card:hover { transform: translateX(8px); }
+        .article-card h3 { margin: 0 0 10px 0; color: var(--gold); }
+
+        /* TABLE */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background: var(--gold); color: white; }
+
+        /* MODALS */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); }
+        .modal-content { background: var(--card-bg); margin: 10% auto; padding: 35px; border-radius: 15px; max-width: 400px; text-align: center; border-top: 6px solid var(--gold); position: relative; }
+        .close-x { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #888; }
+
+        footer { background: var(--dark); color: white; text-align: center; padding: 40px; margin-top: 50px; }
+        footer a { color: var(--gold); text-decoration: none; font-weight: bold; margin: 0 10px; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; border-radius: 10px; overflow: hidden; }
-        th, td { border: 1px solid #eee; padding: 15px; text-align: center; }
-        th { background: var(--gold); color: white; font-weight: 600; }
-
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { 
-            background: var(--card-bg); 
-            margin: 8% auto; 
-            padding: 40px; 
-            border-radius: 20px; 
-            max-width: 450px; 
-            text-align: center; 
-            border-top: 8px solid var(--gold); 
-            position: relative; 
-            animation: modalSlide 0.4s ease;
-        }
-        @keyframes modalSlide { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+
 <header>
     <div class="logo-container" onclick="toggleLogoMenu()">
         <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
@@ -205,14 +90,14 @@
               <path d="M -10 85 Q 40 65 90 5" stroke="#d4af37" stroke-width="6" fill="none"/>
               <path d="M 82 12 L 95 0 L 100 18 Z" fill="#d4af37"/>
             </g>
-            <text x="200" y="115" font-family="Arial, sans-serif" font-weight="bold" font-size="62" fill="white">Fin<tspan fill="#d4af37">Smart</tspan></text>
+            <text x="200" y="115" font-family="Arial" font-weight="bold" font-size="60" fill="white">Fin<tspan fill="#d4af37">Smart</tspan></text>
         </svg>
     </div>
 
     <div id="logoMenu" class="settings-menu">
         <h4 data-key="menu_user">Օգտատեր</h4>
         <button onclick="handleUserDataClick()" data-key="menu_my_data">👤 ԻՄ ՏՎՅԱԼՆԵՐԸ</button>
-        <h4 data-key="menu_lang">Լեզու / Язык / Language</h4>
+        <h4 data-key="menu_lang">Լեզու</h4>
         <button onclick="changeLang('am')">🇦🇲 ARMENIAN</button>
         <button onclick="changeLang('ru')">🇷🇺 RUSSIAN</button>
         <button onclick="changeLang('en')">🇺🇸 ENGLISH</button>
@@ -220,7 +105,7 @@
         <button onclick="toggleDarkMode()" data-key="menu_night_mode">🌙 Գիշերային ռեժիմ</button>
     </div>
     
-    <h1 style="margin-top: 10px;">FinSmart Armenia</h1>
+    <h1>FinSmart Armenia</h1>
     <p id="mainSub" data-key="main_sub">Կառավարեք ձեր ֆինանսները խելացի տարբերակով</p>
 </header>
 
@@ -232,17 +117,17 @@
 <div class="container">
     <div class="card">
         <h2 data-key="calc_title">📊 AI Ֆինանսական Օգնական</h2>
-        <input type="number" id="income" placeholder="Ամսական Եկամուտ (֏)" data-placeholder="input_income">
-        <input type="number" id="expenses" placeholder="Ամսական Ծախսեր (֏)" data-placeholder="input_expenses">
+        <input type="number" id="income" placeholder="Ամսական Եկամուտ">
+        <input type="number" id="expenses" placeholder="Ամսական Ծախսեր">
         <button class="calc-btn" onclick="calculateAI()" data-key="btn_calc">Վերլուծել AI-ով</button>
         <div id="result" class="result-box"><div id="res-text"></div></div>
     </div>
 
     <div class="card">
         <h3 style="color: var(--gold);" data-key="loan_title">🏦 Վարկի Մարման Հաշվարկ</h3>
-        <input type="number" id="loanAmount" placeholder="Վարկի Գումար (֏)" data-placeholder="ph_loan_amount">
-        <input type="number" id="loanInterest" placeholder="Տարեկան Տոկոսադրույք (%)" data-placeholder="ph_loan_interest">
-        <input type="number" id="loanTerm" placeholder="Ժամկետ (ամիս)" data-placeholder="ph_loan_term">
+        <input type="number" id="loanAmount" placeholder="Գումար">
+        <input type="number" id="loanInterest" placeholder="Տոկոս %">
+        <input type="number" id="loanTerm" placeholder="Ամիս">
         <button class="calc-btn" style="background: var(--dark);" onclick="calculateLoan()" data-key="btn_calc_loan">Հաշվարկել</button>
         <div id="loanResult" class="result-box"><div id="loan-res-text"></div></div>
     </div>
@@ -251,74 +136,90 @@
         <h3 style="color: var(--gold);" data-key="conv_title">💱 Արժույթի Փոխանակիչ</h3>
         <input type="number" id="convAmount" value="1000" oninput="convertCurrency()">
         <select id="convType" onchange="updateRateUI()">
-            <option value="USD">ԱՄՆ Դոլար ($)</option>
-            <option value="EUR">Եվրո (€)</option>
-            <option value="RUB">Ռուսական Ռուբլի (₽)</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="RUB">RUB (₽)</option>
         </select>
         <input type="number" id="customRate" oninput="convertCurrency()">
-        <div id="convResult" style="text-align: center; font-weight: bold; font-size: 24px; color: var(--gold); margin-top: 10px;"></div>
+        <div id="convResult" style="text-align: center; font-weight: bold; font-size: 22px; color: var(--gold);"></div>
     </div>
+
     <div class="card">
-        <h3 data-key="history_title">📈 Վերջին Գործողություններ</h3>
+        <h3 data-key="history_title">📈 Պատմություն</h3>
         <table id="historyTable">
             <thead>
-                <tr>
-                    <th data-key="th_date">Ամսաթիվ</th>
-                    <th data-key="th_inc">Եկամուտ</th>
-                    <th data-key="th_exp">Ծախս</th>
-                    <th>X</th>
-                </tr>
+                <tr><th data-key="th_date">Ամսաթիվ</th><th data-key="th_inc">Եկամուտ</th><th data-key="th_exp">Ծախս</th><th>X</th></tr>
             </thead>
             <tbody id="historyBody"></tbody>
         </table>
-        <button class="calc-btn" style="background: #28a745; margin-top: 20px;" onclick="downloadPDF()" data-key="btn_download">📄 Ներբեռնել PDF Զեկույց</button>
+        <button class="calc-btn" style="background: #28a745; margin-top: 20px;" onclick="downloadPDF()" data-key="btn_download">📄 Ներբեռնել PDF</button>
     </div>
 
     <a href="tips1.html" class="article-card">
         <h3 data-key="tip1_title">1. Ինչպե՞ս սկսել խնայել զրոյից ➔</h3>
-        <p data-key="tip1_desc">Իմացեք, թե ինչպես ստեղծել «անվտանգության բարձիկ» նույնիսկ փոքր աշխատավարձով:</p>
+        <p data-key="tip1_desc">Բացահայտեք պարզ քայլեր ձեր առաջին խնայողությունները ստեղծելու համար:</p>
     </a>
     <a href="tips2.html" class="article-card">
         <h3 data-key="tip2_title">2. Ծախսերի օպտիմալացում ➔</h3>
-        <p data-key="tip2_desc">Պարզ մեթոդներ ձեր ամսական ավելորդ ծախսերը 20%-ով կրճատելու համար:</p>
+        <p data-key="tip2_desc">Ինչպես կրճատել ավելորդ ծախսերը առանց կյանքի որակը փոխելու:</p>
     </a>
     <a href="tips3.html" class="article-card">
         <h3 data-key="tip3_title">3. Ներդրումներ Հայաստանում ➔</h3>
-        <p data-key="tip3_desc">Ավանդներ, պարտատոմսեր, թե՞ բիզնես: Որտեղից սկսել ներդրումային ուղին:</p>
+        <p data-key="tip3_desc">Ինչպե՞ս ստիպել գումարին աշխատել ձեզ համար:</p>
     </a>
 </div>
 
-<div id="regModal" class="modal"><div class="modal-content"><h3 data-key="reg_title">📥 Գրանցում</h3><input type="text" id="regName" placeholder="Ձեր Անունը"><input type="email" id="regEmail" placeholder="Էլ. փոստի հասցե"><button class="calc-btn" onclick="saveRegistration()" data-key="btn_save">Պահպանել</button></div></div>
-<div id="userDataModal" class="modal"><div class="modal-content"><span class="close-x" style="float:right; cursor:pointer" onclick="closeModal('userDataModal')">&times;</span><h3 data-key="my_data_title">👤 Իմ Տվյալները</h3><div id="userInfoDisplay" style="margin: 20px 0; text-align: left;"></div><button class="calc-btn" style="background: #ff4d4d;" onclick="logout()" data-key="btn_logout">Ջնջել բոլոր տվյալները</button></div></div>
-<div id="aboutModal" class="modal"><div class="modal-content"><span class="close-x" style="float:right; cursor:pointer" onclick="closeModal('aboutModal')">&times;</span><h2 data-key="nav_about">Մեր մասին</h2><p>FinSmart-ը Հայաստանում ստեղծված առաջին AI հարթակն է, որն օգնում է մարդկանց ճիշտ կառավարել իրենց գումարը:</p></div></div>
-<div id="whyModal" class="modal"><div class="modal-content"><span class="close-x" style="float:right; cursor:pointer" onclick="closeModal('whyModal')">&times;</span><h2 data-key="nav_why">Ինչու՞ FinSmart</h2><p>✅ Գաղտնիություն, ✅ Պարզություն, ✅ Անվճար AI խորհրդատվություն:</p></div></div>
+<div id="regModal" class="modal">
+    <div class="modal-content">
+        <span class="close-x" onclick="closeModal('regModal')">&times;</span>
+        <h3 data-key="reg_title">📥 Գրանցում</h3>
+        <input type="text" id="regName" placeholder="Անուն">
+        <input type="email" id="regEmail" placeholder="Email">
+        <button class="calc-btn" onclick="saveRegistration()">Պահպանել</button>
+    </div>
+</div>
+
+<div id="userDataModal" class="modal">
+    <div class="modal-content">
+        <span class="close-x" onclick="closeModal('userDataModal')">&times;</span>
+        <h3 data-key="my_data_title">👤 Իմ Տվյալները</h3>
+        <div id="userInfoDisplay" style="margin: 20px 0;"></div>
+        <button class="calc-btn" style="background: #ff4d4d;" onclick="logout()">Ջնջել տվյալները</button>
+    </div>
+</div>
+
+<div id="aboutModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeModal('aboutModal')">&times;</span><h2>Մեր մասին</h2><p>FinSmart-ը ձեր թվային ֆինանսական ուղեցույցն է:</p></div></div>
+<div id="whyModal" class="modal"><div class="modal-content"><span class="close-x" onclick="closeModal('whyModal')">&times;</span><h2>Ինչու՞ FinSmart</h2><p>✅ AI խորհրդատվություն և պարզ հաշվարկներ:</p></div></div>
 
 <footer>
-    <p>&copy; 2026 FinSmart Armenia | Բոլոր իրավունքները պաշտպանված են</p>
-    <a href="privacy.html" data-key="privacy_link">Գաղտնիության քաղաքականություն</a> | 
-    <a href="https://www.instagram.com/fin_smart_armenia" target="_blank" data-key="contact_insta">📞 Կապ մեզ հետ (Instagram)</a>
+    &copy; 2026 FinSmart Armenia | 
+    <a href="privacy.html" data-key="privacy_link">Գաղտնիություն</a> | 
+    <a href="https://www.instagram.com/fin_smart_armenia" target="_blank" data-key="contact_insta">📞 Instagram</a>
 </footer>
+
 <script>
+    // ԼԵԶՎԱԿԱՆ ԲԱԶԱ
     const translations = {
         am: {
-            main_sub: "Կառավարեք ձեր ֆինանսները խելացի տարբերակով", calc_title: "📊 AI Ֆինանսական Օգնական", btn_calc: "Վերլուծել AI-ով", loan_title: "🏦 Վարկի Մարման Հաշվարկ", btn_calc_loan: "Հաշվարկել", history_title: "📈 Վերջին Գործողություններ", privacy_link: "Գաղտնիության քաղաքականություն", contact_insta: "📞 Կապ մեզ հետ (Instagram)", menu_my_data: "👤 ԻՄ ՏՎՅԱԼՆԵՐԸ", menu_night_mode: "🌙 Գիշերային ռեժիմ", reg_title: "📥 Գրանցում", btn_save: "Պահպանել", my_data_title: "👤 Իմ Տվյալները", btn_logout: "Ջնջել բոլոր տվյալները", nav_about: "Մեր մասին", nav_why: "Ինչու՞ FinSmart", th_date: "Ամսաթիվ", th_inc: "Եկամուտ", th_exp: "Ծախս", btn_download: "📄 Ներբեռնել PDF Զեկույց", tip1_title: "1. Ինչպե՞ս սկսել խնայել զրոյից ➔", tip2_title: "2. Ծախսերի օպտիմալացում ➔", tip3_title: "3. Ներդրումներ Հայաստանում ➔"
+            main_sub: "Կառավարեք ձեր ֆինանսները խելացի տարբերակով", calc_title: "📊 AI Ֆինանսական Օգնական", btn_calc: "Վերլուծել AI-ով", loan_title: "🏦 Վարկի Մարման Հաշվարկ", btn_calc_loan: "Հաշվարկել", history_title: "📈 Պատմություն", privacy_link: "Գաղտնիություն", contact_insta: "📞 Instagram", menu_my_data: "👤 ԻՄ ՏՎՅԱԼՆԵՐԸ", menu_night_mode: "🌙 Գիշերային ռեժիմ", reg_title: "📥 Գրանցում", my_data_title: "👤 Իմ Տվյալները", tip1_title: "1. Ինչպե՞ս սկսել խնայել զրոյից ➔", tip2_title: "2. Ծախսերի օպտիմալացում ➔", tip3_title: "3. Ներդրումներ Հայաստանում ➔", th_date: "Ամսաթիվ", th_inc: "Եկամուտ", th_exp: "Ծախս", btn_download: "📄 Ներբեռնել PDF"
         },
         ru: {
-            main_sub: "Управляйте финансами с умом", calc_title: "📊 AI Помощник", btn_calc: "Анализ AI", loan_title: "🏦 Кредитный расчет", btn_calc_loan: "Рассчитать", history_title: "📈 Последние действия", privacy_link: "Приватность", contact_insta: "📞 Связь с нами", menu_my_data: "👤 МОИ ДАННЫЕ", menu_night_mode: "🌙 Ночной режим", reg_title: "📥 Регистрация", btn_save: "Сохранить", my_data_title: "👤 Мои данные", btn_logout: "Удалить всё", nav_about: "О нас", nav_why: "Почему мы", th_date: "Дата", th_inc: "Доход", th_exp: "Расход", btn_download: "📄 Скачать PDF", tip1_title: "1. Как начать копить ➔", tip2_title: "2. Оптимизация расходов ➔", tip3_title: "3. Инвестиции в Армении ➔"
+            main_sub: "Управляйте финансами с умом", calc_title: "📊 AI Помощник", btn_calc: "Анализ AI", loan_title: "🏦 Кредитный расчет", btn_calc_loan: "Рассчитать", history_title: "📈 История", privacy_link: "Приватность", contact_insta: "📞 Instagram", menu_my_data: "👤 МОИ ДАННЫЕ", menu_night_mode: "🌙 Ночной режим", reg_title: "📥 Регистрация", my_data_title: "👤 Мои данные", tip1_title: "1. Как начать копить ➔", tip2_title: "2. Оптимизация расходов ➔", tip3_title: "3. Инвестиции в Армении ➔", th_date: "Дата", th_inc: "Доход", th_exp: "Расход", btn_download: "📄 Скачать PDF"
         },
         en: {
-            main_sub: "Manage your finances the smart way", calc_title: "📊 AI Financial Assistant", btn_calc: "Analyze with AI", loan_title: "🏦 Loan Calculator", btn_calc_loan: "Calculate", history_title: "📈 Recent Activity", privacy_link: "Privacy Policy", contact_insta: "📞 Contact (Instagram)", menu_my_data: "👤 MY DATA", menu_night_mode: "🌙 Night Mode", reg_title: "📥 Registration", btn_save: "Save Data", my_data_title: "👤 My Data", btn_logout: "Delete Everything", nav_about: "About Us", nav_why: "Why FinSmart", th_date: "Date", th_inc: "Income", th_exp: "Expense", btn_download: "📄 Download PDF", tip1_title: "1. How to save ➔", tip2_title: "2. Optimization ➔", tip3_title: "3. Investments ➔"
+            main_sub: "Manage finances the smart way", calc_title: "📊 AI Assistant", btn_calc: "Analyze with AI", loan_title: "🏦 Loan Calculator", btn_calc_loan: "Calculate", history_title: "📈 History", privacy_link: "Privacy Policy", contact_insta: "📞 Instagram", menu_my_data: "👤 MY DATA", menu_night_mode: "🌙 Night Mode", reg_title: "📥 Registration", my_data_title: "👤 My Data", tip1_title: "1. How to save ➔", tip2_title: "2. Optimization ➔", tip3_title: "3. Investments ➔", th_date: "Date", th_inc: "Income", th_exp: "Expense", btn_download: "📄 Download PDF"
         }
     };
 
     let currentLang = localStorage.getItem('lang') || 'am';
 
+    // ՖՈՒՆԿՑԻԱՆԵՐ
     function calculateAI() {
         const inc = parseFloat(document.getElementById('income').value) || 0;
         const exp = parseFloat(document.getElementById('expenses').value) || 0;
-        const balance = inc - exp;
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('res-text').innerHTML = `Մնացորդ: <b style="color:${balance >= 0 ? 'green' : 'red'}">${balance.toLocaleString()} ֏</b>`;
+        const resDiv = document.getElementById('result');
+        resDiv.style.display = 'block';
+        document.getElementById('res-text').innerHTML = `Մնացորդ: <b>${(inc - exp).toLocaleString()} ֏</b>`;
         saveToHistory(inc, exp);
     }
 
@@ -334,7 +235,7 @@
     }
 
     function updateRateUI() {
-        const rates = { USD: 398, EUR: 432, RUB: 4.4 };
+        const rates = { USD: 395, EUR: 425, RUB: 4.3 };
         document.getElementById('customRate').value = rates[document.getElementById('convType').value];
         convertCurrency();
     }
@@ -354,7 +255,15 @@
 
     function updateTable() {
         const h = JSON.parse(localStorage.getItem('finH')) || [];
-        document.getElementById('historyBody').innerHTML = h.slice(-5).map(i => `<tr><td>${i.date}</td><td>${i.inc}</td><td>${i.exp}</td><td><button onclick="deleteH(${i.id})">✕</button></td></tr>`).join('');
+        const body = document.getElementById('historyBody');
+        body.innerHTML = h.slice(-5).reverse().map(i => `
+            <tr>
+                <td>${i.date}</td>
+                <td>${i.inc.toLocaleString()}</td>
+                <td>${i.exp.toLocaleString()}</td>
+                <td><button style="border:none; background:none; cursor:pointer;" onclick="deleteH(${i.id})">✕</button></td>
+            </tr>
+        `).join('');
     }
 
     function deleteH(id) {
@@ -366,8 +275,8 @@
     function downloadPDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        doc.text("FinSmart Financial Report", 20, 20);
-        doc.autoTable({ html: '#historyTable', margin: { top: 30 } });
+        doc.text("FinSmart Report", 10, 10);
+        doc.autoTable({ html: '#historyTable' });
         doc.save('FinSmart_Report.pdf');
     }
 
@@ -378,9 +287,14 @@
     function handleUserDataClick() {
         toggleLogoMenu();
         if (localStorage.getItem('fName')) {
-            document.getElementById('userInfoDisplay').innerHTML = `<b>Անուն:</b> ${localStorage.getItem('fName')}<br><b>Էլ. փոստ:</b> ${localStorage.getItem('fEmail')}`;
+            document.getElementById('userInfoDisplay').innerHTML = `
+                <p><b>Անուն:</b> ${localStorage.getItem('fName')}</p>
+                <p><b>Էլ. փոստ:</b> ${localStorage.getItem('fEmail') || 'Նշված չէ'}</p>
+            `;
             openModal('userDataModal');
-        } else { openModal('regModal'); }
+        } else {
+            openModal('regModal');
+        }
     }
 
     function saveRegistration() {
@@ -394,7 +308,10 @@
     }
 
     function logout() { localStorage.clear(); location.reload(); }
-    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); localStorage.setItem('dark', document.body.classList.contains('dark-mode')); }
+    function toggleDarkMode() { 
+        document.body.classList.toggle('dark-mode'); 
+        localStorage.setItem('dark', document.body.classList.contains('dark-mode')); 
+    }
     function changeLang(l) { localStorage.setItem('lang', l); location.reload(); }
 
     window.onload = () => {
