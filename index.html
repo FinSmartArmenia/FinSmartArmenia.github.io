@@ -42,7 +42,6 @@
             position: relative;
         }
 
-        /* --- NEW MENU STYLE --- */
         .sub-nav {
             background: #252525;
             padding: 10px;
@@ -223,6 +222,27 @@
                 </div>
             </div>
         </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+        <div id="loanSection">
+            <h3 style="color: var(--gold);">🏦 Վարկի Մարման Հաշվարկ</h3>
+            <p style="font-size: 13px; color: #777;">Այս բաժինը հաշվում է, թե ձեր ազատ գումարով որքան ժամանակում կփակեք վարկը։</p>
+            
+            <label>Վարկի գումար (֏)</label>
+            <input type="number" id="loanAmount" placeholder="Օրինակ՝ 500,000">
+
+            <label>Տարեկան տոկոսադրույք (%)</label>
+            <input type="number" id="loanInterest" placeholder="Օրինակ՝ 12">
+
+            <label>Նախատեսված ժամկետ (ամիս)</label>
+            <input type="number" id="loanTerm" placeholder="Օրինակ՝ 24">
+
+            <button class="calc-btn" style="background: var(--dark);" onclick="calculateLoan()">Հաշվարկել Մարումը</button>
+
+            <div id="loanResult" class="result-box" style="border-left-color: var(--dark);">
+                <div id="loan-res-text"></div>
+            </div>
+        </div>
     </div>
 
     <div class="card">
@@ -325,7 +345,6 @@
 <footer>&copy; 2026 FinSmart Armenia | <a href="privacy.html" style="color:var(--gold)" data-key="privacy">Գաղտնիություն</a></footer>
 
 <script>
-    // --- ALL OLD LOGIC KEPT ---
     const translations = {
         am: {
             main_sub: "Կառավարեք ձեր ֆինանսները խելացի տարբերակով",
@@ -413,7 +432,6 @@
         localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
 
-    // --- NEW MODAL FUNCTIONS ---
     function openInfoModal(id) { document.getElementById(id).style.display = 'block'; }
     function closeInfoModal(id) { document.getElementById(id).style.display = 'none'; }
     
@@ -480,6 +498,48 @@
         document.getElementById('result').style.display = 'block';
         document.getElementById('res-text').innerHTML = `<p><strong>${langData.free_money}:</strong> ${balance.toLocaleString()} ֏</p><p style="font-size: 14px; color: #666;">🤖 ${aiAdvice}</p>${goalText}`;
         saveToHistory(inc, exp);
+    }
+
+    // NEW LOAN CALCULATION LOGIC
+    function calculateLoan() {
+        const inc = parseFloat(document.getElementById('income').value) || 0;
+        const exp = parseFloat(document.getElementById('expenses').value) || 0;
+        const freeMoney = inc - exp;
+
+        const loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
+        const annualInterest = parseFloat(document.getElementById('loanInterest').value) || 0;
+        const termMonths = parseInt(document.getElementById('loanTerm').value) || 0;
+
+        const loanResDiv = document.getElementById('loanResult');
+        const loanTextDiv = document.getElementById('loan-res-text');
+
+        if (loanAmount <= 0 || freeMoney <= 0) {
+            alert(currentLang === 'am' ? "Խնդրում ենք լրացնել եկամուտը և վարկի գումարը:" : "Please fill income and loan amount:");
+            return;
+        }
+
+        const monthlyInterest = (annualInterest / 100) / 12;
+        let monthlyPayment;
+        
+        if (monthlyInterest > 0) {
+            monthlyPayment = loanAmount * (monthlyInterest * Math.pow(1 + monthlyInterest, termMonths)) / (Math.pow(1 + monthlyInterest, termMonths) - 1);
+        } else {
+            monthlyPayment = loanAmount / termMonths;
+        }
+
+        loanResDiv.style.display = 'block';
+
+        let canAfford = freeMoney >= monthlyPayment;
+        let statusColor = canAfford ? "#2e7d32" : "#d9534f";
+        let statusText = canAfford 
+            ? (currentLang === 'am' ? "✅ Ձեր բյուջեն բավարար է:" : "✅ Your budget is sufficient:") 
+            : (currentLang === 'am' ? "⚠️ Բյուջեն բավարար չէ:" : "⚠️ Budget insufficient:");
+
+        loanTextDiv.innerHTML = `
+            <p style="color: ${statusColor}; font-weight: bold;">${statusText}</p>
+            <p>💰 Ամսական վճար՝ <b>${Math.round(monthlyPayment).toLocaleString()} ֏</b></p>
+            <p>📉 Ընդհանուր տոկոսներ՝ <b>${Math.round((monthlyPayment * termMonths) - loanAmount).toLocaleString()} ֏</b></p>
+        `;
     }
 
     function showCelebration(lvlName) {
