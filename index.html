@@ -386,9 +386,7 @@
 </footer>
 <style>
 
-
-
-    
+<style>
     footer {
         background: var(--dark);
         color: white;
@@ -396,6 +394,12 @@
         padding: 40px 20px;
         margin-top: 50px;
         border-top: 2px solid var(--gold);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer-content {
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .footer-links {
@@ -403,44 +407,71 @@
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        margin-top: 15px;
+        margin-top: 20px;
     }
 
-    .footer-links a {
-        color: #999;
-        text-decoration: none;
-        font-size: 14px;
-        transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-        color: var(--gold);
-    }
-
-    /* Стиль кнопки Instagram */
+    /* Ինստագրամի կոճակի ոճը */
     .insta-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        justify-content: center;
+        gap: 8px; /* Նշանի և տեքստի հեռավորությունը */
         background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         color: white !important;
-        padding: 10px 20px;
+        padding: 10px 24px;
         border-radius: 25px;
-        font-weight: bold;
+        font-weight: 600;
         text-decoration: none;
-        transition: 0.3s transform ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: 0.3s transform ease, 0.3s box-shadow ease;
+        font-size: 15px; /* Տեքստի չափսը */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .insta-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(220, 39, 67, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(220, 39, 67, 0.35);
     }
 
-    .call-icon {
-        font-size: 18px;
+    /* Հեռախոսի նշանի (SVG) ոճը */
+    .call-svg {
+        width: 16px;  /* Հստակ սահմանում ենք տեքստին համապատասխան չափս */
+        height: 16px;
+        fill: white;  /* Նշանի գույնը սպիտակ */
+        flex-shrink: 0; /* Որպեսզի նշանը չսեղմվի */
+    }
+
+    .privacy-link {
+        color: #b0b0b0;
+        text-decoration: none;
+        font-size: 13px;
+        margin-top: 10px;
+        transition: 0.2s;
+    }
+
+    .privacy-link:hover {
+        color: var(--gold);
+        text-decoration: underline;
     }
 </style>
+
+<footer>
+    <div class="footer-content">
+        <p style="margin: 0; font-size: 14px; opacity: 0.8;">&copy; 2026 FinSmart Armenia | Բոլոր իրավունքները պաշտպանված են</p>
+        
+        <div class="footer-links">
+            <a href="https://www.instagram.com/fin_smart_armenia" target="_blank" class="insta-btn">
+                <svg class="call-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                Instagram
+            </a>
+
+            <a href="privacy.html" class="privacy-link" data-key="privacy_link">Գաղտնիության քաղաքականություն</a>
+        </div>
+    </div>
+</footer>
+
+
 
 <footer>
     <div id="footerContent">
